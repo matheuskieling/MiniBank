@@ -1,0 +1,45 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "API", "API\API.csproj", "{52BD90EB-A082-4807-8871-A3803E3C3DAC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{27C2678A-5733-4A7E-9349-2C1D8D5E0789}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IntegrationTests", "IntegrationTests", "{4B58ECB9-F0C9-4AE1-91C8-F65C91EA0C7B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Identity", "Identity\Identity.csproj", "{8BF6C346-7816-4457-9E07-465A1387878F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docker", "Docker", "{B5DE6726-A937-4CC1-86A6-FEB2F9CDFE6A}"
+	ProjectSection(SolutionItems) = preProject
+		docker-compose.yml = docker-compose.yml
+		init.sql = init.sql
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{3913C5DB-477A-48E8-A47D-CAC3172B547A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{A783C5E9-EE03-413F-83B3-E270A87DEF4D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{52BD90EB-A082-4807-8871-A3803E3C3DAC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{52BD90EB-A082-4807-8871-A3803E3C3DAC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{52BD90EB-A082-4807-8871-A3803E3C3DAC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{52BD90EB-A082-4807-8871-A3803E3C3DAC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8BF6C346-7816-4457-9E07-465A1387878F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8BF6C346-7816-4457-9E07-465A1387878F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8BF6C346-7816-4457-9E07-465A1387878F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8BF6C346-7816-4457-9E07-465A1387878F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A783C5E9-EE03-413F-83B3-E270A87DEF4D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A783C5E9-EE03-413F-83B3-E270A87DEF4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A783C5E9-EE03-413F-83B3-E270A87DEF4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A783C5E9-EE03-413F-83B3-E270A87DEF4D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{52BD90EB-A082-4807-8871-A3803E3C3DAC} = {27C2678A-5733-4A7E-9349-2C1D8D5E0789}
+		{8BF6C346-7816-4457-9E07-465A1387878F} = {27C2678A-5733-4A7E-9349-2C1D8D5E0789}
+		{A783C5E9-EE03-413F-83B3-E270A87DEF4D} = {3913C5DB-477A-48E8-A47D-CAC3172B547A}
+	EndGlobalSection
+EndGlobal

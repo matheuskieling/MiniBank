@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <RefOut>false</RefOut>
+        <RefOnly>false</RefOnly>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Dapper" Version="2.1.66" />
+        <PackageReference Include="FluentMigrator.Runner" Version="7.1.0" />
+        <PackageReference Include="FluentMigrator.Runner.Postgres" Version="7.1.0" />
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2"/>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Core\Core.csproj" />
+    </ItemGroup>
+
+</Project>
