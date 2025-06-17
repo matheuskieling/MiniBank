@@ -20,7 +20,7 @@ public class DbSession : IDisposable
         
         if (string.IsNullOrEmpty(builder.SearchPath))
         {
-            throw new ArgumentNullException("The searchPath (schema) should be informed in the connection string.");
+            throw new ArgumentNullException(nameof(builder.SearchPath), "The searchPath (schema) should be informed in the connection string.");
         }
 
         Schema = builder.SearchPath;

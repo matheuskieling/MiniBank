@@ -1,3 +1,7 @@
+using System.Reflection;
+using Core.FluentMigrator;
+using Identity.Infra;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -6,6 +10,8 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddFluentMigrator(builder.Configuration, Assembly.GetExecutingAssembly(), "identity");
+builder.Services.InitDependencyInjection(builder.Configuration);
 
 var app = builder.Build();
 
@@ -17,9 +23,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
-app.UseAuthorization();
-
+app.UseMigrations();
 app.MapControllers();
 
 app.Run();

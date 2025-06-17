@@ -7,7 +7,7 @@ namespace API.Repository;
 
 public class WalletRepository : BaseRepository<WalletRepository>
 {
-    public WalletRepository(DbSession dbSession) : base(dbSession) { }
+    public WalletRepository(DbSession dbSession, ILogger<WalletRepository> logger) : base(dbSession, logger) { }
 
     public async Task<Wallet?> GetWallet(Guid id)
     {
@@ -19,6 +19,9 @@ public class WalletRepository : BaseRepository<WalletRepository>
                                     updated_at AS UpdatedAt
                                 FROM wallet 
                                 WHERE id = @Id";
-        return await QueryFirstOrDefaultAsync<Wallet>(query, new { Id = id });
+        
+        object param = new { Id = id };
+        
+        return await QueryFirstOrDefaultAsync<Wallet>(query, param);
     }
 }
