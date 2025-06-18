@@ -1,5 +1,6 @@
 using System.Reflection;
 using API.Infrastructure;
+using API.Infrastructure.Middlewares;
 using Core.FluentMigrator;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
@@ -14,7 +15,6 @@ builder.Services.AddControllers(config =>
         .RequireAuthenticatedUser()
         .Build();
     config.Filters.Add(new AuthorizeFilter(policy));
-
 });
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -35,5 +35,6 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseMigrations();
 app.ConfigureJwt();
+app.UseMiddleware<CurrentUserMiddleware>();
 app.MapControllers();
 app.Run();

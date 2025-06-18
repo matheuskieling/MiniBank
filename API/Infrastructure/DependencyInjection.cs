@@ -1,5 +1,6 @@
 ﻿using API.Repository;
 using API.Services;
+using API.Services.Interfaces;
 using Core.Database;
 using Core.Domain;
 
@@ -19,5 +20,6 @@ public static class DependencyInjection
         
         services.AddScoped<WalletService>();
         services.AddScoped<WalletRepository>();
+        services.AddScoped<ICurrentUserService, CurrentUserService>();
     }
 }
