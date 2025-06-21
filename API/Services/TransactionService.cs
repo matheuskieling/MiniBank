@@ -10,7 +10,6 @@ public class TransactionService(IWalletService walletService, ITransactionReposi
 {
     public async Task<CommandResult<Transaction>> CreateTransaction(Guid receiverWalletId, long amount)
     {
-        throw new Exception("testing endpoint");
         var receiverWallet = await walletService.GetWalletById(receiverWalletId);
         var senderWallet = await walletService.GetCurrentUserWallet();
         ValidateTransaction(senderWallet, receiverWallet, amount);
