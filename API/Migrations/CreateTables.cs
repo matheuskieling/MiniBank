@@ -9,13 +9,12 @@ public class CreateTables : Migration
     {
         //Execute sql script
         Execute.Sql(@"
-            CREATE TABLE wallet (
+            CREATE TABLE wallets (
                 id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-                user_id UUID NOT NULL,
+                user_id UUID NOT NULL REFERENCES identity.users(id) ON DELETE CASCADE,
                 balance BIGINT NOT NULL DEFAULT 0,
                 created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                uiser_id REFERENCES identity.users(id) ON DELETE CASCADE
+                updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
             )
         ");
     }

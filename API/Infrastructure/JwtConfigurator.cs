@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using System.Text.Json;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 
@@ -27,6 +28,8 @@ public static class JwtConfigurator
                 ValidAudience = jwtConfig["Audience"],
                 IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtConfig["Key"]!))
             };
+            Console.WriteLine(JsonSerializer.Serialize(opts.TokenValidationParameters));
+            Console.WriteLine(JsonSerializer.Serialize(opts.TokenValidationParameters));
         });
         services.AddAuthorization();
 

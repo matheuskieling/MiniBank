@@ -12,6 +12,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docker", "Docker", "{B5DE67
 	ProjectSection(SolutionItems) = preProject
 		docker-compose.yml = docker-compose.yml
 		init.sql = init.sql
+		dbreset.ps1 = dbreset.ps1
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{3913C5DB-477A-48E8-A47D-CAC3172B547A}"

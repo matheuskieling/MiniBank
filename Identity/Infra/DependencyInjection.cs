@@ -1,4 +1,8 @@
-﻿using Core.Database;
+﻿using API.Repository;
+using API.Repository.Interfaces;
+using API.Services;
+using API.Services.Interfaces;
+using Core.Database;
 using Identity.Repositories;
 using Identity.Repositories.Interfaces;
 using Identity.Services;
@@ -13,6 +17,9 @@ public static class DependencyInjection
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IUserService, UserService>();
         services.AddScoped<ITokenService, TokenService>();
+        services.AddScoped<IWalletService, WalletService>();
+        services.AddScoped<ICurrentUserService, CurrentUserService>();
+        services.AddScoped<IWalletRepository, WalletRepository>();
         services.AddScoped<DbSession>(_ =>
         {
             var connectionString = configuration.GetConnectionString("DefaultConnection");

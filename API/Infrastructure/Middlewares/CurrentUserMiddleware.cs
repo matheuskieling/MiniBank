@@ -4,9 +4,9 @@ using API.Services.Interfaces;
 
 namespace API.Infrastructure.Middlewares;
 
-public class CurrentUserMiddleware(RequestDelegate next, ICurrentUserService currentUserService)
+public class CurrentUserMiddleware(RequestDelegate next)
 {
-    public async Task InvokeAsync(HttpContext context)
+    public async Task InvokeAsync(HttpContext context, IServiceProvider serviceProvider)
     {
         if (context.User.Identity?.IsAuthenticated == true)
         {
@@ -15,6 +15,7 @@ public class CurrentUserMiddleware(RequestDelegate next, ICurrentUserService cur
 
             if (!string.IsNullOrEmpty(userId) && !string.IsNullOrEmpty(username))
             {
+                var currentUserService = serviceProvider.GetRequiredService<ICurrentUserService>();
                 currentUserService.CurrentUser = new CurrentUser
                 {
                     UserId = Guid.Parse(userId),

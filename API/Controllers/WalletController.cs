@@ -12,7 +12,7 @@ public class WalletController(WalletService walletService) : ControllerBase
     [HttpGet("/{id}")]
     public async Task<IActionResult> Get(Guid id)
     {
-        var wallet = await walletService.GetWallet(id);
+        var wallet = await walletService.GetWalletById(id);
         return Ok(wallet);
     }
 }

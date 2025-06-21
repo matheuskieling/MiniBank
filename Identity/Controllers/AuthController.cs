@@ -1,4 +1,5 @@
 using System.Data;
+using API.Services.Interfaces;
 using Identity.Models.DTO;
 using Identity.Services;
 using Identity.Services.Interfaces;
@@ -8,7 +9,7 @@ namespace Identity.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class AuthController(IUserService userService, ITokenService tokenService) : ControllerBase
+public class AuthController(IUserService userService, ITokenService tokenService, IWalletService walletService) : ControllerBase
 {
 
     [HttpPost("Login")]
@@ -38,6 +39,13 @@ public class AuthController(IUserService userService, ITokenService tokenService
                 return BadRequest(commandResult.Errors);
             }
 
+            var walletResult = await walletService.CreateWallet(commandResult.Data!.Id);
+            if (!walletResult.Succeded)
+            {
+                await userService.DeleteUserById(commandResult.Data!.Id);
+                return BadRequest(walletResult.Errors);
+            }
+            
             return CreatedAtAction(nameof(Login), new { username = request.UserName }, commandResult.Data);
         }
         catch (DuplicateNameException ex)

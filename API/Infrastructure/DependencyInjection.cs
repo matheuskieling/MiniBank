@@ -1,4 +1,5 @@
 ﻿using API.Repository;
+using API.Repository.Interfaces;
 using API.Services;
 using API.Services.Interfaces;
 using Core.Database;
@@ -18,8 +19,10 @@ public static class DependencyInjection
             return new DbSession(connectionString);
         });
         
-        services.AddScoped<WalletService>();
-        services.AddScoped<WalletRepository>();
+        services.AddScoped<IWalletService, WalletService>();
+        services.AddScoped<IWalletRepository, WalletRepository>();
+        services.AddScoped<ITransactionRepository, TransactionRepository>();
         services.AddScoped<ICurrentUserService, CurrentUserService>();
+        services.AddScoped<ITransactionService, TransactionService>();
     }
 }

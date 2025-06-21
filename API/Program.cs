@@ -4,6 +4,7 @@ using API.Infrastructure.Middlewares;
 using Core.FluentMigrator;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using Core.Swagger;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,7 +19,7 @@ builder.Services.AddControllers(config =>
 });
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.SwaggerConfigInit();
 builder.Services.InitDependencyInjection(builder.Configuration);
 builder.Services.AddFluentMigrator(builder.Configuration, Assembly.GetExecutingAssembly(), "bank");
 builder.Services.ConfigureJwt(builder.Configuration);
@@ -28,13 +29,13 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseInitSwagger();
 }
 
 app.UseHttpsRedirection();
 app.UseMigrations();
 app.ConfigureJwt();
 app.UseMiddleware<CurrentUserMiddleware>();
+app.UseMiddleware<ErrorHandlingMiddleware>();
 app.MapControllers();
 app.Run();

@@ -1,5 +1,6 @@
 using System.Reflection;
 using Core.FluentMigrator;
+using Core.Swagger;
 using Identity.Infra;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,6 +12,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddFluentMigrator(builder.Configuration, Assembly.GetExecutingAssembly(), "identity");
+builder.Services.SwaggerConfigInit();
 builder.Services.InitDependencyInjection(builder.Configuration);
 
 var app = builder.Build();
@@ -18,8 +20,7 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseInitSwagger();
 }
 
 app.UseHttpsRedirection();

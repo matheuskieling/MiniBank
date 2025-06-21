@@ -36,4 +36,14 @@ public class UserService(IUserRepository repository) : IUserService
         var commandResult = await repository.CreateUser(authRequest.UserName, hash, salt);
         return commandResult;
     }
+
+    public async Task<bool> DeleteUserById(Guid id)
+    {
+        var user = await repository.GetUserById(id);
+        if (user is null)
+        {
+            return false;
+        }
+        return await repository.DeleteUserById(id);
+    }
 }
