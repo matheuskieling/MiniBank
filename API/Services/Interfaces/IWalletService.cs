@@ -9,4 +9,7 @@ public interface IWalletService
    Task<Wallet?> GetWalletById(Guid id);
    Task<Wallet?> GetWalletByUserId(Guid userId);
    Task<Wallet?> GetCurrentUserWallet();
+   Task<bool> AddFundsToWallet(long amount);
+   Task<bool> AddFundsToWallet(Guid walletId, long amount);
+   Task<bool> RemoveFundsFromWallet(long amount);
 }

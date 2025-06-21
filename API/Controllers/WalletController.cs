@@ -1,12 +1,12 @@
-using API.Models;
-using API.Services;
+using API.Models.DTO;
+using API.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class WalletController(WalletService walletService) : ControllerBase
+public class WalletController(IWalletService walletService) : ControllerBase
 {
 
     [HttpGet("/{id}")]
@@ -14,5 +14,23 @@ public class WalletController(WalletService walletService) : ControllerBase
     {
         var wallet = await walletService.GetWalletById(id);
         return Ok(wallet);
+    }
+    
+    [HttpPost("Deposit")]
+    public async Task<IActionResult> AddFunds(AddFundsToWalletRequestDto request)
+    {
+        try
+        {
+            var result = await walletService.AddFundsToWallet(request.Amount);
+            if (result)
+            {
+                return Ok("Funds added successfully.");
+            }
+            throw new Exception("Failed to add funds to the wallet.");
+        }
+        catch (InvalidOperationException ex)
+        {
+            return BadRequest(new ErrorResponse(ex.Message, StatusCodes.Status400BadRequest));
+        }
     }
 }

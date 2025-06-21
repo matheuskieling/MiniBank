@@ -27,4 +27,35 @@ public class WalletService(IWalletRepository walletRepository, ICurrentUserServi
         
         return await walletRepository.GetWalletByUserId(currentUserService.CurrentUser!.UserId);
     }
+
+    public async Task<bool> AddFundsToWallet(long amount)
+    {
+        var wallet = await GetCurrentUserWallet();
+        if (wallet is null)
+        {
+            throw new InvalidOperationException("Current user wallet not found");
+        }
+        return await walletRepository.AddFundsToWallet(amount, wallet.Id);
+    }
+    
+    public async Task<bool> RemoveFundsFromWallet(long amount)
+    {
+        var wallet = await GetCurrentUserWallet();
+        if (wallet is null)
+        {
+            throw new InvalidOperationException("Current user wallet not found");
+        }
+        return await walletRepository.RemoveFundsFromWallet(amount, wallet.Id);
+    }
+    
+    public async Task<bool> AddFundsToWallet(Guid walletId, long amount)
+    {
+        var wallet = await GetWalletById(walletId);
+        if (wallet is null)
+        {
+            throw new InvalidOperationException("Current user wallet not found");
+        }
+        return await walletRepository.AddFundsToWallet(amount, walletId);
+    }
+
 }

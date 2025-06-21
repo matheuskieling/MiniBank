@@ -52,4 +52,18 @@ public class WalletRepository : BaseRepository<WalletRepository>, IWalletReposit
         var result = await ExecuteCommand<Wallet>(command);
         return result;
     }
+    
+    public async Task<bool> AddFundsToWallet(long amount, Guid walletId)
+    {
+        var command = new AddFundsToWalletCommand(amount, walletId);
+        var result = await ExecuteCommand<dynamic>(command);
+        return result.Succeded;
+    }
+    
+    public async Task<bool> RemoveFundsFromWallet(long amount, Guid walletId)
+    {
+        var command = new RemoveFundsFromWalletCommand(amount, walletId);
+        var result = await ExecuteCommand<dynamic>(command);
+        return result.Succeded;
+    }
 }

@@ -2,7 +2,6 @@
 using API.Repository.Interfaces;
 using API.Services.Interfaces;
 using Core.Data;
-using Microsoft.IdentityModel.Tokens;
 
 namespace API.Services;
 
@@ -10,17 +9,34 @@ public class TransactionService(IWalletService walletService, ITransactionReposi
 {
     public async Task<CommandResult<Transaction>> CreateTransaction(Guid receiverWalletId, long amount)
     {
-        var receiverWallet = await walletService.GetWalletById(receiverWalletId);
-        var senderWallet = await walletService.GetCurrentUserWallet();
-        ValidateTransaction(senderWallet, receiverWallet, amount);
-
-        var transaction = new Transaction
+        using (var trans = repository.dbSession.Connection.BeginTransaction())
         {
-            SenderId = senderWallet!.Id,
-            ReceiverId = receiverWallet!.Id,
-            Amount = amount,
-        };
-        return await repository.CreateTransaction(transaction);
+            try
+            {
+                repository.dbSession.Transaction = trans;
+                var receiverWallet = await walletService.GetWalletById(receiverWalletId);
+                var senderWallet = await walletService.GetCurrentUserWallet();
+                ValidateTransaction(senderWallet, receiverWallet, amount);
+
+                var transaction = new Transaction
+                {
+                    SenderId = senderWallet!.Id,
+                    ReceiverId = receiverWallet!.Id,
+                    Amount = amount,
+                };
+                await walletService.RemoveFundsFromWallet(amount);
+                await walletService.AddFundsToWallet(receiverWalletId, amount);
+                var result = await repository.CreateTransaction(transaction);
+                
+                trans.Commit();
+                return result;
+            }
+            catch (Exception ex)
+            {
+                trans.Rollback();
+                throw;
+            }
+        }
     }
 
 
