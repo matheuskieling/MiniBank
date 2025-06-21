@@ -24,7 +24,7 @@ public class ErrorHandlingMiddleware(RequestDelegate next)
     private static Task HandleUntreatedErrorAsync(HttpContext context)
     {
         context.Response.ContentType = "application/json";
-        var errorResponse = new ErrorResponse("An unexpected error occurred", StatusCodes.Status500InternalServerError);
+        var errorResponse = new ErrorResponse();
         var jsonResponse = JsonSerializer.Serialize(errorResponse, new JsonSerializerOptions{ PropertyNamingPolicy = JsonNamingPolicy.CamelCase });
         
         return context.Response.WriteAsync(jsonResponse);
@@ -34,7 +34,7 @@ public class ErrorHandlingMiddleware(RequestDelegate next)
     {
         context.Response.ContentType = "application/json";
         context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-        var errorResponse = new ErrorResponse("An unexpected error occurred", StatusCodes.Status500InternalServerError);
+        var errorResponse = new ErrorResponse();
         var jsonResponse = JsonSerializer.Serialize(errorResponse, new JsonSerializerOptions{ PropertyNamingPolicy = JsonNamingPolicy.CamelCase });
         
         return context.Response.WriteAsync(jsonResponse);
