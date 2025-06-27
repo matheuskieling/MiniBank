@@ -30,7 +30,7 @@ public class WalletController(IWalletService walletService) : ControllerBase
         var wallet = await walletService.GetWalletByUserId(id);
         if (wallet is null)
         {
-            return NotFound(new { Message = "Wallet not found for the specified user." });
+            return NotFound(new ErrorResponse("Wallet not found for the specified user.", StatusCodes.Status404NotFound));
         }
         return Ok(wallet);
     }

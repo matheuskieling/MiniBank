@@ -61,8 +61,6 @@ public class IdentityIntegrationTestsFixture<TProgram> : IDisposable where TProg
         Assert.NotNull(receiverWallet.Data);
         return receiverWallet.Data;
     }
-    
-    
 
     public void Dispose()
     {
