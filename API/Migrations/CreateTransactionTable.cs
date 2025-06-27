@@ -9,7 +9,7 @@ public class CreateTransactionTable : Migration
     {
         //Execute sql script
         Execute.Sql(@"
-            CREATE TABLE transactions (
+            CREATE TABLE IF NOT EXISTS transactions (
                 id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
                 sender_id UUID NOT NULL REFERENCES wallets(id) ON DELETE CASCADE,
                 receiver_id UUID NOT NULL REFERENCES wallets(id) ON DELETE CASCADE,

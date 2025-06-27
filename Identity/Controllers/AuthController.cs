@@ -21,11 +21,7 @@ public class AuthController(IUserService userService, ITokenService tokenService
             return Unauthorized();
         }
         var token = tokenService.GenerateToken(user);
-        return Ok(new
-        {
-            Id = user.Id,
-            Token = token
-        });
+        return Ok(new LoginResponse(user.Id, token));
     }
 
     [HttpPost("Register")]

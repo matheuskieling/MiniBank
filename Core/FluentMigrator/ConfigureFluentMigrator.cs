@@ -6,7 +6,12 @@ namespace Core.FluentMigrator;
 
 public static class ConfigureFluentMigrator
 {
-    public static void AddFluentMigrator(this IServiceCollection services, IConfiguration configuration, Assembly migrationsAssembly, string schema)
+    public static Assembly? Assembly { get; set; }
+    public static void SetAssembly(this IServiceCollection services, Assembly assembly)
+    {
+        Assembly = assembly ?? throw new ArgumentNullException(nameof(assembly), "Assembly cannot be null");
+    }
+    public static void AddFluentMigrator(this IServiceCollection services, IConfiguration configuration, string schema)
     {
         // Register FluentMigrator services
         services.AddFluentMigratorCore()
@@ -14,7 +19,7 @@ public static class ConfigureFluentMigrator
                 .AddPostgres()
                 .WithVersionTable(new CustomVersionTable(schema))
                 .WithGlobalConnectionString(configuration.GetConnectionString("DefaultConnection"))
-                .ScanIn(migrationsAssembly).For.Migrations()
+                .ScanIn(Assembly).For.Migrations()
             )
             .AddLogging(lb => lb.AddFluentMigratorConsole());
     }

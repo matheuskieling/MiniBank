@@ -6,6 +6,7 @@ namespace API.Repository.Interfaces;
 
 public interface ITransactionRepository
 {
-    DbSession dbSession { get; set; }
     Task<CommandResult<Transaction>> CreateTransaction(Transaction transaction);
+    DbSession GetDbSession();
+    Task<IEnumerable<Transaction>> GetTransactionsBySenderId(Guid senderId);
 }

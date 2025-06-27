@@ -15,7 +15,7 @@ public class RemoveFundsFromWalletCommand : BaseCommand
     }
     
     public override string Script => @"
-            UPDATE wallets 
+            UPDATE bank.wallets 
             SET balance = balance - @Amount
             WHERE id = @WalletId
     ";

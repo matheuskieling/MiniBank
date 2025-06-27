@@ -5,7 +5,7 @@ namespace Identity.Infra;
 
 public static class PasswordHasher
 {
-    public static (string Hash, string Salt) HashPasswrod(string password)
+    public static (string Hash, string Salt) HashPassword(string password)
     {
         using var hmac = new HMACSHA256();
         var salt = Convert.ToBase64String(hmac.Key);

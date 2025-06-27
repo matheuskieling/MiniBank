@@ -13,7 +13,7 @@ public class CreateTransactionCommand : BaseCommand
     }
     
     public override string Script => @"
-        INSERT INTO transactions (sender_id, receiver_id, amount)
+        INSERT INTO bank.transactions (sender_id, receiver_id, amount)
         VALUES (@SenderID, @ReceiverId, @Amount)
         RETURNING id as Id,
          sender_id as SenderId,

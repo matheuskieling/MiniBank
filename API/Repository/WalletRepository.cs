@@ -28,6 +28,7 @@ public class WalletRepository : BaseRepository<WalletRepository>, IWalletReposit
         
         return await QueryFirstOrDefaultAsync<Wallet>(query, param);
     }
+    
 
     public async Task<Wallet?> GetWalletByUserId(Guid id)
     {
@@ -38,12 +39,26 @@ public class WalletRepository : BaseRepository<WalletRepository>, IWalletReposit
                                     created_at AS CreatedAt, 
                                     user_id as UserId,
                                     updated_at AS UpdatedAt
-                                FROM wallets
+                                FROM bank.wallets
                                 WHERE user_id = @Id";
         
         object? param = new { Id = id };
         
         return await QueryFirstOrDefaultAsync<Wallet>(query, param);
+    }
+    
+    public async Task<IEnumerable<Wallet>> GetWallets()
+    {
+        const string query = @"
+                                SELECT 
+                                    id AS Id, 
+                                    balance AS Balance, 
+                                    created_at AS CreatedAt, 
+                                    user_id as UserId,
+                                    updated_at AS UpdatedAt
+                                FROM bank.wallets";
+        
+        return await QueryAsync<Wallet>(query);
     }
 
     public async Task<CommandResult<Wallet>> CreateWallet(Guid userId)

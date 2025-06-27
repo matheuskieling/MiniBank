@@ -11,7 +11,11 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddFluentMigrator(builder.Configuration, Assembly.GetExecutingAssembly(), "identity");
+builder.Services.SetAssembly(Assembly.GetExecutingAssembly());
+if (builder.Environment.EnvironmentName != "IntegrationTest")
+{
+    builder.Services.AddFluentMigrator(builder.Configuration, "identity");
+}
 builder.Services.SwaggerConfigInit();
 builder.Services.InitDependencyInjection(builder.Configuration);
 
@@ -28,3 +32,5 @@ app.UseMigrations();
 app.MapControllers();
 
 app.Run();
+
+public partial class IdentityProgram { }

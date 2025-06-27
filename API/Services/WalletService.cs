@@ -12,6 +12,11 @@ public class WalletService(IWalletRepository walletRepository, ICurrentUserServi
         return await walletRepository.CreateWallet(userId);
     }
 
+    public async Task<IEnumerable<Wallet>> GetWallets()
+    {
+        return await walletRepository.GetWallets();
+    }
+
     public async Task<Wallet?> GetWalletById(Guid id)
     {
         return await walletRepository.GetWalletById(id);

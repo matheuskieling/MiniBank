@@ -21,7 +21,11 @@ builder.Services.AddControllers(config =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.SwaggerConfigInit();
 builder.Services.InitDependencyInjection(builder.Configuration);
-builder.Services.AddFluentMigrator(builder.Configuration, Assembly.GetExecutingAssembly(), "bank");
+builder.Services.SetAssembly(Assembly.GetExecutingAssembly());
+if (builder.Environment.EnvironmentName != "IntegrationTest")
+{
+    builder.Services.AddFluentMigrator(builder.Configuration,"bank");
+}
 builder.Services.ConfigureJwt(builder.Configuration);
 
 var app = builder.Build();
@@ -39,3 +43,5 @@ app.UseMiddleware<CurrentUserMiddleware>();
 app.UseMiddleware<ErrorHandlingMiddleware>();
 app.MapControllers();
 app.Run();
+
+public partial class ApiProgram { }

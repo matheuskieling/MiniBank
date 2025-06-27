@@ -10,6 +10,6 @@ public class DeleteUserCommand : BaseCommand
     {
         Id = id;
     }
-    public override string Script => "DETELE FROM users WHERE id = @Id";
+    public override string Script => "DETELE FROM identity.users WHERE id = @Id";
     public override object Param => new { Id };
 }

@@ -32,7 +32,7 @@ public class UserService(IUserRepository repository) : IUserService
         {
             throw new DuplicateNameException();
         }
-        var (hash, salt) = PasswordHasher.HashPasswrod(authRequest.Password);
+        var (hash, salt) = PasswordHasher.HashPassword(authRequest.Password);
         var commandResult = await repository.CreateUser(authRequest.UserName, hash, salt);
         return commandResult;
     }

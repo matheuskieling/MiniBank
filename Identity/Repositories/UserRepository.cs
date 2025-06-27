@@ -20,7 +20,7 @@ public class UserRepository(DbSession session, ILogger<UserRepository> logger) :
                                     hash as Hash,
                                     created_at AS CreatedAt, 
                                     updated_at AS UpdatedAt
-                                FROM users 
+                                FROM identity.users 
                                 WHERE username = @Username";
 
         object? param = new { Username = username };
@@ -38,7 +38,7 @@ public class UserRepository(DbSession session, ILogger<UserRepository> logger) :
                                     hash as Hash,
                                     created_at AS CreatedAt, 
                                     updated_at AS UpdatedAt
-                                FROM users 
+                                FROM identity.users 
                                 WHERE id = @Id";
 
         object? param = new { Id = id };
