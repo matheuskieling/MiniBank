@@ -12,7 +12,21 @@ namespace API.Controllers;
 public class TransactionController(ITransactionService service) : ControllerBase
 {
 
+    /// <summary>
+    /// Creates a new transaction between wallets.
+    /// </summary>
+    /// <param name="request">The transaction request containing the receiver wallet ID and the amount to transfer.</param>
+    /// <returns>
+    /// Returns an HTTP 200 status code with the transaction details if successful.
+    /// Returns an HTTP 400 status code if the request is invalid.
+    /// Returns an HTTP 404 status code if the receiver wallet is not found.
+    /// Returns an HTTP 422 status code if there are insufficient funds or the transaction cannot be processed.
+    /// </returns>
     [HttpPost]
+    [ProducesResponseType(typeof(Transaction), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status422UnprocessableEntity)]
     public async Task<IActionResult> CreateTransaction(TransactionRequestDto request)
     {
         try
